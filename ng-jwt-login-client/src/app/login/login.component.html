@@ -1,0 +1,30 @@
+
+<div class="container">
+    <h2>Sign In</h2>
+    <form #loginform="ngForm" (ngSubmit)="loginUser()">
+      <small class="text-danger">{{errorMsg}}</small>
+      <div class="form-group">
+        <label for="username">User Name:</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter User Name" name="username" [(ngModel)]="user.username" required pattern="^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$" #usernameref="ngModel"
+        [class.is-invalid]="usernameref.invalid && usernameref.touched"
+        >
+        <!-- <small class="text-danger" [class.d-none]="usernameref.valid || usernameref.untouched">User Name is a required field</small> -->
+        <div *ngIf="usernameref.errors && (usernameref.invalid && usernameref.touched)">
+            <small class="text-danger" *ngIf="usernameref.errors.required">User Name is a required field</small>
+            <small class="text-danger" *ngIf="usernameref.errors.pattern">Enter the valid user name</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" [(ngModel)]="user.password" required #passwordref="ngModel"
+        [class.is-invalid]="passwordref.invalid && passwordref.touched">
+        <small class="text-danger" [class.d-none]="passwordref.valid || passwordref.untouched">Password is a required field</small>
+      </div>
+      <div class="checkbox">
+        <label><input type="checkbox" name="remember"> Remember me</label>
+      </div>
+      <button [disabled]="loginform.form.invalid" type="submit" class="btn btn-info">Login</button>
+    </form>
+    <!-- <small class="float-end" (click)="goToRegistration()">New User ? Register here</small> -->
+    <small class="float-end" [routerLink]="['/registration']">New User ? Register here</small>
+  </div>

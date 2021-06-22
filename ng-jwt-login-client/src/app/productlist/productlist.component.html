@@ -1,0 +1,38 @@
+<button type="button" class="btn btn-primary float-end" (click)="logout()">Logout</button>
+<div class="container">
+    <h2>Product List</h2>
+    <p>The table lists down all the products available</p>            
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Image</th> 
+          <th>Product Id</th>
+          <th>Product Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rp of retrievedProducts">
+          <td>
+              <img src="{{rp.imageModel}}" style="width:45px;height:45px;">
+          </td>
+          <td>{{rp.product?.id}}</td>
+          <td>{{rp.product?.name}}</td>
+          <td>{{rp.product?.description}}</td>
+          <td>{{rp.product?.price}}</td>
+          <td>
+            <button type="button" class="btn btn-primary">Edit</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-info">View</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <button type="button" class="btn btn-success"  [routerLink]="['/addproducts']">Add New Product</button> -->
+    <button type="button" class="btn btn-success" (click)="submit()">Add New Product</button>
+  </div>
+
+  
+    

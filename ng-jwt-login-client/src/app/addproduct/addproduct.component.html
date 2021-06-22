@@ -1,0 +1,65 @@
+<button type="button" class="btn btn-primary float-end" (click)="logout()">Logout</button>
+
+<p>addproduct works!</p>
+<div class="container row">
+    <div class="col-md-12">
+        <h1>Upload Image</h1>
+    </div>
+</div>
+
+<div class="container row">
+    <div class="col-md-6">
+        <input type="file" (change)="onFileChanged($event)">
+
+    </div>
+    <div class="col-md-6">
+        <input type="button" (click)="onUpload()" value="upload">
+    </div>
+</div>
+<hr />
+
+<div class="container">
+    <h2>Add Product</h2>
+    <form #addProductform="ngForm" (ngSubmit)="onAdd()">
+      <div class="form-group">
+        <label for="product_id">Product Id:</label>
+        <input type="text" class="form-control" id="product_id" placeholder="Enter id here" name="product_id" [(ngModel)]="product.id" required #productid="ngModel"
+        [class.is-invalid]="productid.invalid && productid.touched"
+        >
+        <div *ngIf="productid.errors && (productid.invalid && productid.touched)">
+            <small class="text-danger" *ngIf="productid.errors.required">product id is a required field</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="product_name">Product Name:</label>
+        <input type="text" class="form-control" id="product_name" placeholder="Enter product name here" name="product_name" [(ngModel)]="product.name" required #productname="ngModel"
+        [class.is-invalid]="productname.invalid && productname.touched"
+        >
+        <div *ngIf="productname.errors && (productname.invalid && productname.touched)">
+            <small class="text-danger" *ngIf="productname.errors.required">product name is a required field</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="product_description">Product Name:</label>
+        <input type="text" class="form-control" id="product_description" placeholder="Enter description here" name="product_description" [(ngModel)]="product.description" required #productdescription="ngModel"
+        [class.is-invalid]="productdescription.invalid && productdescription.touched"
+        >
+        <div *ngIf="productdescription.errors && (productdescription.invalid && productdescription.touched)">
+            <small class="text-danger" *ngIf="productdescription.errors.required">product description is a required field</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="product_price">Product Price:</label>
+        <input type="text" class="form-control" id="product_price" placeholder="Enter price here" name="product_price" [(ngModel)]="product.price" required #productprice="ngModel"
+        [class.is-invalid]="productprice.invalid && productprice.touched"
+        >
+        <div *ngIf="productprice.errors && (productprice.invalid && productprice.touched)">
+            <small class="text-danger" *ngIf="productprice.errors.required">product price is a required field</small>
+        </div>
+      </div>
+      <button [disabled]="addProductform.form.invalid" type="submit" class="btn btn-info">Add</button>
+    </form>
+    <!-- <small class="float-end" (click)="goToRegistration()">New User ? Register here</small> -->
+    <!-- <small class="float-end" [routerLink]="['/registration']">New User ? Register here</small> -->
+  </div>
+
