@@ -13,7 +13,9 @@ COPY --chown=node:node . .
 RUN npm install @angular/cli@11.2.0
 
 #CMD ["npm","run","build"]
-CMD node_modules/.bin/ng build
+#CMD node_modules/.bin/ng build
+
+RUN npm run build
 
 FROM nginx
 EXPOSE 4200
