@@ -21,7 +21,7 @@ export class ProductremoteService {
     var options =  {
       headers: headers
   };
-    return this._http.get<RetrievedProduct[]>("http://localhost:8080/product/all", options);
+    return this._http.get<RetrievedProduct[]>("/api/product/all", options);
   }
 
   public addProduct(token:any, uploadMultiPartData:FormData):Observable<Productinfo>{
@@ -32,6 +32,6 @@ export class ProductremoteService {
     var options =  {
       headers: headers
   };
-    return this._http.post<Productinfo>("http://localhost:8080/product/add", uploadMultiPartData, options);
+    return this._http.post<Productinfo>("/api/product/add", uploadMultiPartData, options);
   }
 }

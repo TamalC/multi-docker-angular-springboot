@@ -108,7 +108,6 @@ public class HomeResource {
 		
 		final String jwt = jwtTokenUtil.refreshToken(expectedMap, userDetails);
 		
-		//return ResponseEntity.ok(new AuthenticationResponse(jwt));
 		return ResponseEntity.ok(jwt);
 	}
 	
@@ -126,10 +125,7 @@ public class HomeResource {
 				invalidJwtRepository.save(new InvalidJwt(jwt));
 		}
 		
-		
-		
-		
-		//return ResponseEntity.ok(new AuthenticationResponse(jwt));
+				
 		return ResponseEntity.ok("token invalidated");
 	}
 	

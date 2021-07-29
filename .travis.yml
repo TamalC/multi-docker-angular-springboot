@@ -1,0 +1,22 @@
+language: generic 
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t tchakrab/angular-test -f ./ng-jwt-login-client/Dockerfile.dev ./ng-jwt-login-client
+
+script:
+  - docker run -e CI=true tchakrab/angular-test npm test
+
+after_success:
+  - docker build -t tchakrab/angular-client ./ng-jwt-login-client
+  - docker build -t tchakrab/proxy-nginx ./nginx
+  - docker build -t tchakrab/spring-server ./spring-security-jpa
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push tchakrab/angular-client
+  - docker push tchakrab/proxy-nginx
+  - docker push tchakrab/spring-server
+  

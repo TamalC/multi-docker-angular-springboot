@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+    mysqldb:
+        image: 'mysql:latest'
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=springsecurity
+        ports:
+            - 8083:3306
+        volumes:
+        - ./mysqldb:/docker-entrypoint-initdb.d
+    api:
+        depends_on:
+            - mysqldb
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./spring-security-jpa
+        volumes:
+            - /home/node/app/node_modules
+            - ./spring-security-jpa:/home/node/app
+        environment: 
+            - MYSQL_URL=jdbc:mysql://mysqldb:3306/springsecurity?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+            - MYSQL_PORT=3306
+            - MYSQL_USERNAME=root
+            - MYSQL_PASSWORD=password
+        ports:
+            - "8080:8080"
+    client:
+        stdin_open: true
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./ng-jwt-login-client
+        volumes:
+            - /home/node/app/node_modules
+            - ./ng-jwt-login-client:/home/node/app 
+        ports:
+            - "4200:4200"
+    nginx:
+        depends_on:
+            - api
+            - client
+        restart: always
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./nginx
+        ports:
+            - '3060:80'
+    
