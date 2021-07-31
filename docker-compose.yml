@@ -22,8 +22,9 @@ services:
             - /home/node/app/node_modules
             - ./spring-security-jpa:/home/node/app
         environment: 
-            - MYSQL_URL=jdbc:mysql://mysqldb:3306/springsecurity?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+            - MYSQL_HOST=mysqldb
             - MYSQL_PORT=3306
+            - MYSQL_DB=springsecurity
             - MYSQL_USERNAME=root
             - MYSQL_PASSWORD=password
         ports:
